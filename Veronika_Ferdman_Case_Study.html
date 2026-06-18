@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operationalizing AI Quality — Veronika Ferdman</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,680&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F4F5F1;
+    --paper-2:#ECEEE8;
+    --ink:#181A1B;
+    --ink-soft:#52564F;
+    --ink-faint:#8A8D84;
+    --rule:#D7DACE;
+    --accent:#B8412B;
+    --accent-wash:#EFDCD2;
+    --display: 'Fraunces', serif;
+    --body: 'Inter', -apple-system, sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+    --maxw: 880px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent-wash); }
+  a:hover{ border-bottom-color:var(--accent); }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; border-radius:2px; }
+
+  /* ---------- scroll calibration bar ---------- */
+  .gauge{
+    position:fixed; top:0; left:0; right:0; height:4px; z-index:50;
+    background-image: repeating-linear-gradient(90deg, var(--rule) 0 1px, transparent 1px 14px);
+    background-color: rgba(244,245,241,0.6);
+  }
+  .gauge__fill{
+    height:100%; width:0%;
+    background:var(--accent);
+    transition:width 60ms linear;
+  }
+
+  /* ---------- masthead ---------- */
+  .masthead{
+    max-width:var(--maxw); margin:0 auto; padding:28px 28px 0;
+    display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap;
+  }
+  .masthead__name{
+    font-family:var(--mono); font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink);
+  }
+  .masthead__name span{ color:var(--ink-faint); }
+  .masthead__contact a{ font-family:var(--mono); font-size:12.5px; }
+
+  /* ---------- hero ---------- */
+  .hero{ max-width:var(--maxw); margin:0 auto; padding:64px 28px 0; }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--accent); margin-bottom:22px;
+  }
+  .eyebrow::before{ content:"◆"; font-size:9px; transform:translateY(-1px); }
+
+  h1.thesis{
+    font-family:var(--display); font-weight:600; font-optical-sizing:auto;
+    font-size:clamp(28px, 4.6vw, 46px); line-height:1.18; letter-spacing:-0.01em;
+    margin:0 0 22px; max-width:760px;
+  }
+  .hero__sub{
+    font-size:clamp(16px,2vw,18.5px); color:var(--ink-soft); max-width:620px; margin:0 0 30px;
+  }
+  .hero__meta{
+    display:flex; flex-wrap:wrap; gap:10px 0; font-family:var(--mono); font-size:12px;
+    letter-spacing:.04em; text-transform:uppercase; color:var(--ink-faint);
+  }
+  .hero__meta span:not(:last-child)::after{ content:"·"; margin:0 10px; color:var(--rule); }
+
+  /* ---------- calibration ruler divider ---------- */
+  .ruler{
+    max-width:var(--maxw); margin:46px auto 0; padding:0 28px;
+  }
+  .ruler__line{
+    height:18px;
+    background-image:
+      repeating-linear-gradient(90deg, var(--ink-faint) 0 1px, transparent 1px 40px),
+      repeating-linear-gradient(90deg, var(--rule) 0 1px, transparent 1px 8px);
+    background-position: 0 0, 0 8px;
+    background-size: 100% 12px, 100% 6px;
+    opacity:.55;
+  }
+
+  /* ---------- sections ---------- */
+  section{ max-width:var(--maxw); margin:0 auto; padding:64px 28px; }
+  section + section{ border-top:1px solid var(--rule); }
+
+  .reveal{ transition:opacity .6s ease, transform .6s ease; }
+  .reveal.pre-reveal{ opacity:0; transform:translateY(14px); }
+  @media (prefers-reduced-motion: reduce){
+    .reveal.pre-reveal{ opacity:1; transform:none; transition:none; }
+  }
+
+  .section-grid{ display:grid; grid-template-columns:140px 1fr; gap:8px 36px; }
+  .section-label{
+    font-family:var(--mono); font-size:12.5px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--ink-faint); padding-top:6px;
+  }
+  h2.section-title{
+    font-family:var(--display); font-weight:600; font-size:clamp(22px,3vw,28px);
+    margin:0 0 18px; letter-spacing:-0.005em;
+  }
+  .section-body p{ margin:0 0 16px; color:var(--ink-soft); font-size:16px; max-width:640px; }
+  .section-body p:last-child{ margin-bottom:0; }
+  .section-body strong{ color:var(--ink); }
+
+  @media (max-width:680px){
+    .section-grid{ grid-template-columns:1fr; gap:6px; }
+    .section-label{ padding-top:0; }
+  }
+
+  /* ---------- approach steps ---------- */
+  .steps{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
+  .step{ display:grid; grid-template-columns:56px 1fr; gap:20px; position:relative; padding:22px 0; }
+  .step + .step{ border-top:1px dashed var(--rule); }
+  .step__num{
+    font-family:var(--display); font-weight:600; font-size:26px; color:var(--accent);
+    line-height:1;
+  }
+  .step__title{ font-weight:600; color:var(--ink); margin:0 0 6px; font-size:16.5px; }
+  .step__desc{ color:var(--ink-soft); margin:0; font-size:15.5px; max-width:560px; }
+
+  /* ---------- built list ---------- */
+  .built{ list-style:none; margin:0; padding:0; }
+  .built__item{ padding:18px 0; border-top:1px solid var(--rule); }
+  .built__item:first-child{ border-top:none; padding-top:0; }
+  .built__tag{
+    display:inline-block; font-family:var(--mono); font-size:10.5px; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--accent); background:var(--accent-wash);
+    padding:3px 7px; border-radius:3px; margin-bottom:8px;
+  }
+  .built__text{ margin:0; color:var(--ink-soft); font-size:15.5px; max-width:600px; }
+  .built__text strong{ color:var(--ink); }
+
+  /* ---------- results / stat grid ---------- */
+  .stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin:0 0 40px; }
+  .stat{ padding:0 18px 0 0; border-right:1px solid var(--rule); }
+  .stat:last-child{ border-right:none; padding-right:0; }
+  .stat:not(:first-child){ padding-left:18px; }
+  .stat__num{ font-family:var(--mono); font-weight:500; font-size:clamp(22px,3.4vw,30px); color:var(--ink); display:block; }
+  .stat__label{ font-size:12.5px; color:var(--ink-faint); margin-top:6px; line-height:1.4; }
+  @media (max-width:680px){
+    .stats{ grid-template-columns:repeat(2,1fr); row-gap:26px; }
+    .stat{ border-right:1px solid var(--rule); }
+    .stat:nth-child(2n){ border-right:none; padding-right:0; }
+    .stat:nth-child(odd){ padding-left:0; }
+  }
+
+  .findings{ list-style:none; margin:0 0 36px; padding:0; }
+  .findings li{
+    display:flex; gap:12px; padding:10px 0; color:var(--ink-soft); font-size:15.5px; max-width:640px;
+  }
+  .findings li::before{ content:"—"; color:var(--accent); flex-shrink:0; }
+
+  .annotation{
+    border-left:3px solid var(--accent); background:var(--paper-2);
+    padding:20px 24px; margin:0; max-width:600px; transform:rotate(-0.3deg);
+  }
+  .annotation p{
+    font-family:var(--display); font-style:italic; font-weight:500;
+    font-size:18px; color:var(--ink); margin:0 0 10px; line-height:1.5;
+  }
+  .annotation cite{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--ink-faint); font-style:normal;
+  }
+
+  /* ---------- closing ---------- */
+  .verdict{
+    border:1px solid var(--rule); background:var(--paper-2);
+    padding:34px; max-width:680px;
+  }
+  .verdict p{ margin:0 0 16px; color:var(--ink-soft); font-size:16px; }
+  .verdict p:last-child{ margin-bottom:0; }
+  .verdict strong{ color:var(--ink); font-weight:600; }
+
+  footer{
+    max-width:var(--maxw); margin:0 auto; padding:40px 28px 70px;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+    font-family:var(--mono); font-size:12px; color:var(--ink-faint); letter-spacing:.03em;
+  }
+</style>
+</head>
+<body>
+
+  <div class="gauge"><div class="gauge__fill" id="gaugeFill"></div></div>
+
+  <header class="masthead">
+    <div class="masthead__name">VERONIKA FERDMAN <span>— CONTENT DESIGNER, AI SYSTEMS &amp; EVALUATION</span></div>
+    <div class="masthead__contact"><a href="mailto:veronika.ferdman@gmail.com">veronika.ferdman@gmail.com</a></div>
+  </header>
+
+  <div class="hero">
+    <div class="eyebrow">Case Study — AI Quality Evaluation</div>
+    <h1 class="thesis">Most AI teams ship model output before anyone has decided what &ldquo;good&rdquo; actually sounds like, reads like, or means.</h1>
+    <p class="hero__sub">This is the story of building the system that answered that question for an enterprise AI assistant — from zero, at scale, with no playbook to follow.</p>
+    <div class="hero__meta">
+      <span>Meta</span>
+      <span>Content Designer, AI Systems Architecture &amp; Governance</span>
+      <span>~5-month build · 10+ concurrent workstreams</span>
+    </div>
+  </div>
+
+  <div class="ruler"><div class="ruler__line"></div></div>
+
+  <section class="reveal">
+    <div class="section-grid">
+      <div class="section-label">The Problem</div>
+      <div class="section-body">
+        <p>A large-scale business AI assistant was scaling rapidly across multiple advertiser surfaces with <strong>no shared standard</strong> for evaluating the quality, tone, or accuracy of what it said. Individual contributors were making judgment calls in isolation — no calibration process, no grading methodology, no documentation of what failure even looked like, and no way to know if the product was getting better or worse over time.</p>
+        <p>The risk wasn&rsquo;t just inconsistency. It was shipping AI outputs that no one had formally decided were good enough — with real potential to give business owners inaccurate guidance and erode trust in the product.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <div class="section-grid">
+      <div class="section-label">The Approach</div>
+      <div class="section-body">
+        <p style="margin-bottom:30px;">Rather than writing guidelines and hoping they&rsquo;d stick, the goal was an <strong>operational system</strong> — one that could run repeatedly, surface failure patterns, and improve over time.</p>
+        <ol class="steps">
+          <li class="step">
+            <span class="step__num">01</span>
+            <div>
+              <p class="step__title">Define the standard</p>
+              <p class="step__desc">Establish evaluation criteria before touching a single prompt — what does a passing output look like across tone, accuracy, safety, and UX fit?</p>
+            </div>
+          </li>
+          <li class="step">
+            <span class="step__num">02</span>
+            <div>
+              <p class="step__title">Build the golden query set</p>
+              <p class="step__desc">Write 80+ golden-set prompts across 7 product surfaces, covering edge cases, failure-prone scenarios, and high-stakes use cases.</p>
+            </div>
+          </li>
+          <li class="step">
+            <span class="step__num">03</span>
+            <div>
+              <p class="step__title">Run calibrations, not passive reviews</p>
+              <p class="step__desc">Facilitate calibration sessions with cross-functional partners — not to rubber-stamp outputs, but to surface disagreement, align on judgment, and document the reasoning.</p>
+            </div>
+          </li>
+          <li class="step">
+            <span class="step__num">04</span>
+            <div>
+              <p class="step__title">Build feedback loops</p>
+              <p class="step__desc">Design RLHF-informed grading cycles with structured thumbs-down and FAIL analysis, so every failure became an input to the next iteration.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <div class="section-grid">
+      <div class="section-label">What Was Built</div>
+      <div class="section-body">
+        <p style="margin-bottom:26px;">Over approximately five months, working as the sole content design owner across 10+ concurrent workstreams:</p>
+        <ul class="built">
+          <li class="built__item">
+            <span class="built__tag">Infrastructure</span>
+            <p class="built__text"><strong>Full model evaluation infrastructure</strong> — grading standards, calibration protocol, prompt library, failure taxonomy, and iteration process — none of which existed before.</p>
+          </li>
+          <li class="built__item">
+            <span class="built__tag">Benchmarks</span>
+            <p class="built__text"><strong>80+ golden-set prompts</strong> across 7 product surfaces, designed to expose the model&rsquo;s full failure surface under real-world conditions.</p>
+          </li>
+          <li class="built__item">
+            <span class="built__tag">Governance</span>
+            <p class="built__text">A <strong>Quality Standards Guide</strong> covering evaluation methodology, grading rubrics, and decision frameworks — written for one team, adopted by adjacent teams as shared org infrastructure.</p>
+          </li>
+          <li class="built__item">
+            <span class="built__tag">Training</span>
+            <p class="built__text">A <strong>training program for 19 content designers</strong> on AI evaluation tooling and methodology, including an AI Building Quick Start Guide for Content Design.</p>
+          </li>
+          <li class="built__item">
+            <span class="built__tag">Delivery</span>
+            <p class="built__text"><strong>189+ total artifacts</strong> across evaluation, navigation, notifications, onboarding, and AI-driven surfaces — all delivered concurrently, on deadline.</p>
+          </li>
+          <li class="built__item">
+            <span class="built__tag">Automation</span>
+            <p class="built__text">A <strong>multi-agent knowledge-maintenance workflow</strong> that monitored UI changes and flagged necessary updates automatically — keeping the assistant evergreen and saving design and engineering <strong>5+ hours of manual work weekly</strong>.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <div class="section-grid">
+      <div class="section-label">The Results</div>
+      <div class="section-body">
+        <div class="stats">
+          <div class="stat"><span class="stat__num">60/61</span><span class="stat__label">flagged issues resolved in a single sprint</span></div>
+          <div class="stat"><span class="stat__num">10+</span><span class="stat__label">teams adopted the standard beyond the original product</span></div>
+          <div class="stat"><span class="stat__num">19</span><span class="stat__label">practitioners trained on the methodology</span></div>
+          <div class="stat"><span class="stat__num">5+ hrs</span><span class="stat__label">manual work automated away, weekly</span></div>
+        </div>
+        <ul class="findings">
+          <li>The Quality Standards Guide became an org asset, not a one-team artifact.</li>
+          <li>Calibration sessions surfaced reliability issues, legal risks, and UX inconsistencies before launch, not after.</li>
+        </ul>
+        <blockquote class="annotation">
+          <p>&ldquo;Few content designers have this depth in AI quality evaluation.&rdquo;</p>
+          <cite>— Manager, Meta</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <div class="section-grid">
+      <div class="section-label">What This<br>Demonstrates</div>
+      <div class="section-body">
+        <div class="verdict">
+          <p>This is <strong>content design work operating at the infrastructure layer</strong>. Deciding what &ldquo;good&rdquo; sounds like, reads like, and behaves like — then turning that decision into criteria, prompts, calibration sessions, and documentation other teams could run without me — is the same judgment a content designer brings to a single screen, applied at the scale an AI product demands.</p>
+          <p>The work required defining evaluation criteria, building golden query sets, facilitating calibration across functions, writing governance documentation that became org-wide infrastructure, and training the next generation of content designers to run the system themselves. That combination — <strong>content judgment paired with systems-building rigor</strong> — is what most organizations don&rsquo;t yet have anyone on staff to provide.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>OPERATIONALIZING AI QUALITY — CASE STUDY</span>
+    <span>[ADD PORTFOLIO HOME LINK]</span>
+  </footer>
+
+<script>
+  // Scroll-progress calibration gauge
+  const fill = document.getElementById('gaugeFill');
+  function updateGauge(){
+    const h = document.documentElement;
+    const scrollable = h.scrollHeight - h.clientHeight;
+    const pct = scrollable > 0 ? (h.scrollTop / scrollable) * 100 : 0;
+    fill.style.width = pct + '%';
+  }
+  document.addEventListener('scroll', updateGauge, { passive:true });
+  updateGauge();
+
+  // Reveal on scroll — content is fully visible by default;
+  // this only adds a transient entrance animation when supported.
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduceMotion && 'IntersectionObserver' in window){
+    const targets = document.querySelectorAll('.reveal');
+    targets.forEach(el=>el.classList.add('pre-reveal'));
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.remove('pre-reveal'); obs.unobserve(e.target); }
+      });
+    }, { threshold:0.12 });
+    targets.forEach(el=>obs.observe(el));
+  }
+</script>
+
+</body>
+</html>
