@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naming for Trust — Veronika Ferdman</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #f5f5f1;
+    --ink: #1c2024;
+    --ink-soft: #4a5159;
+    --rule: #d9d8d1;
+    --accent: #2e4a45;
+    --accent-warm: #c87f3c;
+    --card: #ffffff;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:780px;
+    margin:0 auto;
+    padding:64px 28px 96px;
+  }
+  header.masthead{
+    border-bottom:1px solid var(--rule);
+    padding-bottom:28px;
+    margin-bottom:48px;
+  }
+  .name{
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+    letter-spacing:0.04em;
+    font-size:13px;
+    text-transform:uppercase;
+    color:var(--ink);
+  }
+  .role{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:4px;
+  }
+  .email{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:2px;
+  }
+  .email a{color:var(--ink-soft); text-decoration:none; border-bottom:1px solid var(--rule);}
+  .eyebrow{
+    margin-top:20px;
+    font-size:12px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--accent-warm);
+    font-weight:600;
+  }
+
+  h1.thesis{
+    font-family:'Source Serif 4', Georgia, serif;
+    font-weight:600;
+    font-size:clamp(28px, 4.4vw, 38px);
+    line-height:1.28;
+    letter-spacing:-0.01em;
+    margin:18px 0 22px;
+    color:var(--ink);
+  }
+  .dek{
+    font-size:17px;
+    color:var(--ink-soft);
+    max-width:62ch;
+    margin-bottom:26px;
+  }
+  .meta-line{
+    font-size:13px;
+    color:var(--ink-soft);
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px 10px;
+    align-items:center;
+  }
+  .meta-line .dot{color:var(--rule);}
+
+  section{margin-top:56px;}
+  h2.section-title{
+    font-family:'Inter',sans-serif;
+    font-size:12px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    font-weight:700;
+    color:var(--accent);
+    margin-bottom:16px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  h2.section-title::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:var(--rule);
+  }
+
+  p{font-size:16px; color:var(--ink); margin:0 0 14px;}
+  .lead-q{
+    font-size:17px;
+    color:var(--ink-soft);
+    font-style:italic;
+    margin-bottom:16px;
+  }
+
+  .steps{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+    border-top:1px solid var(--rule);
+  }
+  .step{
+    display:grid;
+    grid-template-columns:48px 1fr;
+    gap:18px;
+    padding:22px 0;
+    border-bottom:1px solid var(--rule);
+  }
+  .step-num{
+    font-family:'Source Serif 4', serif;
+    font-size:22px;
+    color:var(--accent-warm);
+    font-weight:600;
+  }
+  .step h3{
+    margin:0 0 6px;
+    font-size:16px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .step p{margin:0; font-size:15px; color:var(--ink-soft);}
+
+  .built-list{
+    list-style:none;
+    margin:0; padding:0;
+    border-top:1px solid var(--rule);
+  }
+  .built-list li{
+    padding:16px 0;
+    border-bottom:1px solid var(--rule);
+    display:grid;
+    grid-template-columns:140px 1fr;
+    gap:18px;
+    font-size:15px;
+    color:var(--ink-soft);
+  }
+  .built-list li .tag{
+    font-weight:700;
+    color:var(--ink);
+    font-size:13px;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    padding-top:1px;
+  }
+  .built-list li b{color:var(--ink); font-weight:600;}
+
+  .stat-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:1px;
+    background:var(--rule);
+    border:1px solid var(--rule);
+    margin-top:8px;
+  }
+  .stat{
+    background:var(--card);
+    padding:26px 20px;
+  }
+  .stat .num{
+    font-family:'Source Serif 4', serif;
+    font-size:30px;
+    font-weight:600;
+    color:var(--accent);
+    line-height:1.1;
+  }
+  .stat .label{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:6px;
+  }
+
+  .closing p{font-size:16px; color:var(--ink-soft);}
+  .closing b{color:var(--ink);}
+
+  footer{
+    margin-top:72px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:560px){
+    .built-list li{grid-template-columns:1fr;}
+    .stat-grid{grid-template-columns:1fr;}
+    .step{grid-template-columns:36px 1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="name">Veronika Ferdman — Senior Content Designer</div>
+    <div class="email"><a href="mailto:veronika.ferdman@gmail.com">veronika.ferdman@gmail.com</a></div>
+    <div class="eyebrow">Case Study — Naming &amp; Product Trust</div>
+  </header>
+
+  <h1 class="thesis">A feature can be technically accurate and still erode trust — if its name promises something it doesn't deliver.</h1>
+  <p class="dek">The story of catching a shortcut before it shipped, then partnering with research to find a name that matched what the product actually did.</p>
+  <div class="meta-line">
+    <span>Meta — Business Productivity &amp; Creation Tools</span>
+    <span class="dot">·</span>
+    <span>2-quarter arc, content design + UXR partnership</span>
+  </div>
+
+  <section>
+    <h2 class="section-title">The Problem</h2>
+    <p>Two product teams were racing to ship a new scheduling feature on an accelerated timeline: a tool that would tell businesses the best time to post on Facebook and Instagram. To save time, the working plan was to average each platform's optimal posting time into a single number, and call the feature <b>"Smart Scheduler."</b></p>
+    <p>Neither decision held up under scrutiny. Averaging two platforms with different audience behavior into one number meant the "optimal" time wouldn't actually be optimal for either platform — a gap users would eventually notice and lose trust over. And "smart" was a loaded word: prior naming audits showed it signaled heavy machine-learning sophistication the feature didn't have, setting users up to expect more than the product could deliver.</p>
+  </section>
+
+  <section>
+    <h2 class="section-title">The Approach</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div>
+          <h3>Flag the trust risk early</h3>
+          <p>Raised the averaging shortcut as a product-quality risk, not a content nitpick — once users noticed the recommended time wasn't optimal for either platform, the feature would lose credibility fast.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div>
+          <h3>Push for the harder, more honest version</h3>
+          <p>Advocated for scrapping the single averaged time in favor of two distinct, platform-specific recommendations — a heavier build on an already tight timeline, but the only version users could actually rely on.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div>
+          <h3>Replace a guess with a study</h3>
+          <p>Partnered with a UXR lead to design a two-part naming study, testing whether "Smart Scheduler" actually set the right expectations instead of relying on instinct alone.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div>
+          <h3>Let the data pick the name</h3>
+          <p>Used round-one findings to shortlist five candidate names, tested them in round two, and landed on a name that was both accurate to the feature and didn't lose any of its appeal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">What I Did</h2>
+    <ul class="built-list">
+      <li><span class="tag">Direction</span><span>Convinced both teams to abandon the single-averaged-time shortcut in favor of <b>two platform-specific recommendations</b> — slower to build, but the version users could trust.</span></li>
+      <li><span class="tag">Research</span><span>Co-designed a <b>two-part naming study</b> with UXR to test "Smart Scheduler" against alternatives, turning a content judgment call into a validated decision.</span></li>
+      <li><span class="tag">Interim copy</span><span>Proposed <b>"Recommended Times"</b> as a stopgap label while the study ran, so engineering and design could keep moving without locking in a misleading name.</span></li>
+      <li><span class="tag">Final naming</span><span>Synthesized study results into five finalist names for round-two testing; <b>"Optimal Times"</b> won — accurate to what the feature does, with more appeal than the safer fallback.</span></li>
+      <li><span class="tag">Launch</span><span>Shipped on BizWeb with both platform-specific recommendations intact, no averaging shortcut in the final build.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="section-title">The Results</h2>
+    <div class="stat-grid">
+      <div class="stat">
+        <div class="num">+10.46K</div>
+        <div class="label">Projected weekly lift in planning engagement (WEBA) at launch</div>
+      </div>
+      <div class="stat">
+        <div class="num">&gt;15%</div>
+        <div class="label">Click-through rate on the feature post-launch, signaling real adoption</div>
+      </div>
+      <div class="stat">
+        <div class="num">2 of 2</div>
+        <div class="label">Platforms given accurate, distinct recommendations instead of one averaged guess</div>
+      </div>
+      <div class="stat">
+        <div class="num">2-part</div>
+        <div class="label">Naming study run to replace assumption with evidence before launch</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <h2 class="section-title">What This Demonstrates</h2>
+    <p>Good content design isn't just writing the label on a button — it's deciding whether the thing being labeled is honest in the first place. Catching the averaging shortcut meant looking past the immediate ask ("ship a number") to the underlying product claim ("this number is optimal for you") and asking whether that claim would survive contact with real users.</p>
+    <p>The naming work mattered just as much: <b>not settling for instinct</b> when a name carried real risk of overselling the product, and instead building the evidence — a structured study, a shortlist, a second round — to make the call defensible. That combination, <b>protecting the user's trust in what a feature claims to do, then proving the language choice rather than guessing at it</b>, is the same judgment that scales from a single feature name to a full product's content standards.</p>
+  </section>
+
+  <footer>Naming &amp; Product Trust — Case Study</footer>
+
+</div>
+</body>
+</html>
