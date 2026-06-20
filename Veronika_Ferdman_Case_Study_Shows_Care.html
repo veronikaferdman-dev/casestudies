@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teaching an AI Model to Show Care — Veronika Ferdman</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #f5f5f1;
+    --ink: #1c2024;
+    --ink-soft: #4a5159;
+    --rule: #d9d8d1;
+    --accent: #3b3f6e;
+    --accent-warm: #c87f3c;
+    --card: #ffffff;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:780px;
+    margin:0 auto;
+    padding:64px 28px 96px;
+  }
+  header.masthead{
+    border-bottom:1px solid var(--rule);
+    padding-bottom:28px;
+    margin-bottom:48px;
+  }
+  .name{
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+    letter-spacing:0.04em;
+    font-size:13px;
+    text-transform:uppercase;
+    color:var(--ink);
+  }
+  .role{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:4px;
+  }
+  .email{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:2px;
+  }
+  .email a{color:var(--ink-soft); text-decoration:none; border-bottom:1px solid var(--rule);}
+  .eyebrow{
+    margin-top:20px;
+    font-size:12px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--accent-warm);
+    font-weight:600;
+  }
+
+  h1.thesis{
+    font-family:'Source Serif 4', Georgia, serif;
+    font-weight:600;
+    font-size:clamp(28px, 4.4vw, 38px);
+    line-height:1.28;
+    letter-spacing:-0.01em;
+    margin:18px 0 22px;
+    color:var(--ink);
+  }
+  .dek{
+    font-size:17px;
+    color:var(--ink-soft);
+    max-width:62ch;
+    margin-bottom:8px;
+  }
+
+  section{margin-top:56px;}
+  h2.section-title{
+    font-family:'Inter',sans-serif;
+    font-size:12px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    font-weight:700;
+    color:var(--accent);
+    margin-bottom:16px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  h2.section-title::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:var(--rule);
+  }
+
+  p{font-size:16px; color:var(--ink); margin:0 0 14px;}
+
+  .steps{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+    border-top:1px solid var(--rule);
+  }
+  .step{
+    display:grid;
+    grid-template-columns:48px 1fr;
+    gap:18px;
+    padding:22px 0;
+    border-bottom:1px solid var(--rule);
+  }
+  .step-num{
+    font-family:'Source Serif 4', serif;
+    font-size:22px;
+    color:var(--accent-warm);
+    font-weight:600;
+  }
+  .step h3{
+    margin:0 0 6px;
+    font-size:16px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .step p{margin:0; font-size:15px; color:var(--ink-soft);}
+
+  .built-list{
+    list-style:none;
+    margin:0; padding:0;
+    border-top:1px solid var(--rule);
+  }
+  .built-list li{
+    padding:16px 0;
+    border-bottom:1px solid var(--rule);
+    display:grid;
+    grid-template-columns:140px 1fr;
+    gap:18px;
+    font-size:15px;
+    color:var(--ink-soft);
+  }
+  .built-list li .tag{
+    font-weight:700;
+    color:var(--ink);
+    font-size:13px;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    padding-top:1px;
+  }
+  .built-list li b{color:var(--ink); font-weight:600;}
+
+  .stat-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:1px;
+    background:var(--rule);
+    border:1px solid var(--rule);
+    margin-top:8px;
+  }
+  .stat{
+    background:var(--card);
+    padding:26px 20px;
+  }
+  .stat .num{
+    font-family:'Source Serif 4', serif;
+    font-size:30px;
+    font-weight:600;
+    color:var(--accent);
+    line-height:1.1;
+  }
+  .stat .label{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:6px;
+  }
+
+  .closing p{font-size:16px; color:var(--ink-soft);}
+  .closing b{color:var(--ink);}
+
+  footer{
+    margin-top:72px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:560px){
+    .built-list li{grid-template-columns:1fr;}
+    .stat-grid{grid-template-columns:1fr;}
+    .step{grid-template-columns:36px 1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="name">Veronika Ferdman — Content Design &amp; AI Evaluation</div>
+    <div class="email"><a href="mailto:veronika.ferdman@gmail.com">veronika.ferdman@gmail.com</a></div>
+    <div class="eyebrow">Case Study — Teaching an AI Model to "Show Care"</div>
+  </header>
+
+  <h1 class="thesis">An AI model can learn grammar. Teaching it to recognize whether content treats people with care is a different problem entirely.</h1>
+  <p class="dek">How a subjective content-design heuristic became a standard precise enough to train and grade an AI model against.</p>
+
+  <section>
+    <h2 class="section-title">The Problem</h2>
+    <p>Meta's internal Design Agent — an AI tool that suggests rewrites to product strings — could tell whether a rewrite was grammatically correct and on-brand. What it couldn't reliably tell was whether a rewrite actually <b>showed care</b> for the person reading it: whether it anticipated confusion, acknowledged what was at stake for the user, or avoided jargon a stressed person wouldn't parse in the moment.</p>
+    <p>"Shows care" is a standard content designers apply by instinct, built from years of reading interfaces the way a real, distracted, possibly anxious user would. It had never been written down precisely enough for a model to be trained or graded against — two rewrites could both be technically correct, and only a content designer's eye could tell you which one actually respected the reader.</p>
+  </section>
+
+  <section>
+    <h2 class="section-title">The Approach</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div>
+          <h3>Define the standard in gradable terms</h3>
+          <p>Translated "shows care" from an instinct into concrete criteria — naming what separates a rewrite that respects the reader's context from one that's merely correct.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div>
+          <h3>Build a labeled example set</h3>
+          <p>Created paired examples of content that did and didn't meet the standard, giving the model concrete cases to reason from instead of an abstract principle to guess at.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div>
+          <h3>Evaluate the model's actual suggestions</h3>
+          <p>Reviewed AI-suggested string rewrites against the standard, identifying not just where the model's reasoning broke down, but why.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div>
+          <h3>Refine the logic and re-test</h3>
+          <p>Fed those failure patterns back into the model's reasoning and its application of CD standards, then re-evaluated performance against Meta's Beta Entry bar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">What I Did</h2>
+    <ul class="built-list">
+      <li><span class="tag">Standard</span><span>Operationalized <b>"shows care,"</b> a qualitative content-craft heuristic, into criteria precise enough for a model to be trained and evaluated against.</span></li>
+      <li><span class="tag">Evaluation</span><span>Personally reviewed AI-suggested rewrites, grading the model's outputs and identifying systematic gaps in its reasoning.</span></li>
+      <li><span class="tag">Scale</span><span>Extended this work as <b>one of three Content Design leads</b> in Meta's AI String Manager Pilot Program, reviewing roughly <b>1,500 strings</b> to improve AI tooling used across the broader CD organization.</span></li>
+      <li><span class="tag">Iteration</span><span>Refined the model's reasoning and standards application based on review findings, then re-tested against the 2025 H2 modeling goal.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="section-title">The Results</h2>
+    <div class="stat-grid">
+      <div class="stat">
+        <div class="num">0.7525</div>
+        <div class="label">Precision rate achieved — +0.0525 over the Beta Entry bar</div>
+      </div>
+      <div class="stat">
+        <div class="num">0.7808</div>
+        <div class="label">Recall rate achieved — +0.0808 over the Beta Entry bar</div>
+      </div>
+      <div class="stat">
+        <div class="num">~1,500</div>
+        <div class="label">Strings personally reviewed across the AI tooling pilot</div>
+      </div>
+      <div class="stat">
+        <div class="num">1 of 3</div>
+        <div class="label">Content Design leads selected for the pilot program</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <h2 class="section-title">What This Demonstrates</h2>
+    <p>This is the place where content design and AI evaluation stop being two different skill sets and become the same discipline. Defining "shows care" required the same instinct a content designer brings to a single screen: reading content the way a real, possibly stressed, possibly confused person would. Turning that instinct into labeled examples, evaluation criteria, and a precision/recall target required treating content judgment as a system precise enough to specify, test, and improve — the same rigor as any other quality bar.</p>
+    <p>Most people are strong in one half of this: the craft judgment, or the measurement rigor. <b>Doing both — defining what "good" means, then proving a model actually learned it</b> — is what lets content design judgment scale past a single string and into the systems an AI product runs on.</p>
+  </section>
+
+  <footer>Teaching an AI Model to Show Care — Case Study</footer>
+
+</div>
+</body>
+</html>
