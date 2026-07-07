@@ -193,6 +193,46 @@
     margin-top:6px;
   }
 
+  /* Screenshot section */
+  .screenshot-intro{
+    font-size:15px;
+    color:var(--ink-soft);
+    margin-bottom:24px;
+  }
+  .screenshot-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin-top:8px;
+  }
+  .screenshot-item{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .screenshot-item img{
+    width:100%;
+    border:1px solid var(--rule);
+    border-radius:6px;
+    display:block;
+    box-shadow:0 2px 12px rgba(0,0,0,0.07);
+  }
+  .screenshot-caption{
+    font-size:12px;
+    color:var(--ink-soft);
+    letter-spacing:0.02em;
+    line-height:1.5;
+  }
+  .screenshot-caption b{
+    display:block;
+    font-size:12px;
+    font-weight:700;
+    color:var(--ink);
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    margin-bottom:3px;
+  }
+
   .closing p{font-size:16px; color:var(--ink-soft);}
   .closing b{color:var(--ink);}
 
@@ -210,6 +250,7 @@
     .built-list li{grid-template-columns:1fr;}
     .stat-grid{grid-template-columns:1fr;}
     .step{grid-template-columns:36px 1fr;}
+    .screenshot-grid{grid-template-columns:1fr;}
   }
 </style>
 </head>
@@ -275,6 +316,27 @@
       <li><span class="tag">Final naming</span><span>Synthesized study results into five finalist names for round-two testing; <b>"Active Times"</b> won — accurate to what the feature does, with more appeal than the safer fallback.</span></li>
       <li><span class="tag">Launch</span><span>Shipped on time with both platform-specific recommendations intact — no averaging shortcut in the final build.</span></li>
     </ul>
+  </section>
+
+  <section>
+    <h2 class="section-title">The Feature in Production</h2>
+    <p class="screenshot-intro">Active Times as it shipped — platform-specific recommendations for Facebook and Instagram, exactly as advocated for. The copy across both the entry point and the scheduling modal reflects the final naming and the honest, per-platform framing the feature needed to earn user trust.</p>
+    <div class="screenshot-grid">
+      <div class="screenshot-item">
+        <img src="ActiveTimes_Entry.png" alt="Active Times entry point in the Create Post flow, showing platform-specific scheduling fields for Facebook and Instagram">
+        <div class="screenshot-caption">
+          <b>Entry point</b>
+          The scheduling section of the Create Post flow. Each platform surfaces its own recommended times rather than a single averaged suggestion.
+        </div>
+      </div>
+      <div class="screenshot-item">
+        <img src="ActiveTimes_PopUp.png" alt="Active Times modal showing recommended posting times for Facebook and Instagram separately">
+        <div class="screenshot-caption">
+          <b>Scheduling modal</b>
+          The expanded Active Times modal. Facebook and Instagram each surface three distinct recommended windows — accurate to how each platform's audience actually behaves.
+        </div>
+      </div>
+    </div>
   </section>
 
   <section>
