@@ -44,11 +44,6 @@
     text-transform:uppercase;
     color:var(--ink);
   }
-  .role{
-    font-size:13px;
-    color:var(--ink-soft);
-    margin-top:4px;
-  }
   .email{
     font-size:13px;
     color:var(--ink-soft);
@@ -63,7 +58,6 @@
     color:var(--accent-warm);
     font-weight:600;
   }
-
   h1.thesis{
     font-family:'Source Serif 4', Georgia, serif;
     font-weight:600;
@@ -79,16 +73,6 @@
     max-width:62ch;
     margin-bottom:26px;
   }
-  .meta-line{
-    font-size:13px;
-    color:var(--ink-soft);
-    display:flex;
-    flex-wrap:wrap;
-    gap:6px 10px;
-    align-items:center;
-  }
-  .meta-line .dot{color:var(--rule);}
-
   section{margin-top:56px;}
   h2.section-title{
     font-family:'Inter',sans-serif;
@@ -108,15 +92,7 @@
     height:1px;
     background:var(--rule);
   }
-
   p{font-size:16px; color:var(--ink); margin:0 0 14px;}
-  .lead-q{
-    font-size:17px;
-    color:var(--ink-soft);
-    font-style:italic;
-    margin-bottom:16px;
-  }
-
   .steps{
     display:flex;
     flex-direction:column;
@@ -136,14 +112,8 @@
     color:var(--accent-warm);
     font-weight:600;
   }
-  .step h3{
-    margin:0 0 6px;
-    font-size:16px;
-    font-weight:700;
-    color:var(--ink);
-  }
+  .step h3{margin:0 0 6px; font-size:16px; font-weight:700; color:var(--ink);}
   .step p{margin:0; font-size:15px; color:var(--ink-soft);}
-
   .built-list{
     list-style:none;
     margin:0; padding:0;
@@ -167,7 +137,6 @@
     padding-top:1px;
   }
   .built-list li b{color:var(--ink); font-weight:600;}
-
   .stat-grid{
     display:grid;
     grid-template-columns:repeat(2,1fr);
@@ -176,10 +145,7 @@
     border:1px solid var(--rule);
     margin-top:8px;
   }
-  .stat{
-    background:var(--card);
-    padding:26px 20px;
-  }
+  .stat{background:var(--card); padding:26px 20px;}
   .stat .num{
     font-family:'Source Serif 4', serif;
     font-size:30px;
@@ -187,55 +153,44 @@
     color:var(--accent);
     line-height:1.1;
   }
-  .stat .label{
-    font-size:13px;
-    color:var(--ink-soft);
-    margin-top:6px;
-  }
+  .stat .label{font-size:13px; color:var(--ink-soft); margin-top:6px;}
 
-  /* Screenshot section */
+  /* Screenshots — stacked full-width */
   .screenshot-intro{
     font-size:15px;
     color:var(--ink-soft);
-    margin-bottom:24px;
+    margin-bottom:28px;
   }
-  .screenshot-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:16px;
-    margin-top:8px;
-  }
-  .screenshot-item{
+  .screenshot-stack{
     display:flex;
     flex-direction:column;
-    gap:10px;
+    gap:36px;
   }
   .screenshot-item img{
     width:100%;
+    display:block;
     border:1px solid var(--rule);
     border-radius:6px;
-    display:block;
-    box-shadow:0 2px 12px rgba(0,0,0,0.07);
+    box-shadow:0 2px 16px rgba(0,0,0,0.08);
+    margin-bottom:12px;
   }
-  .screenshot-caption{
-    font-size:12px;
-    color:var(--ink-soft);
-    letter-spacing:0.02em;
-    line-height:1.5;
-  }
-  .screenshot-caption b{
-    display:block;
+  .screenshot-label{
     font-size:12px;
     font-weight:700;
     color:var(--ink);
     text-transform:uppercase;
-    letter-spacing:0.06em;
-    margin-bottom:3px;
+    letter-spacing:0.07em;
+    margin-bottom:4px;
+  }
+  .screenshot-caption{
+    font-size:14px;
+    color:var(--ink-soft);
+    line-height:1.55;
+    max-width:64ch;
   }
 
   .closing p{font-size:16px; color:var(--ink-soft);}
   .closing b{color:var(--ink);}
-
   footer{
     margin-top:72px;
     padding-top:20px;
@@ -245,12 +200,10 @@
     text-transform:uppercase;
     color:var(--ink-soft);
   }
-
   @media (max-width:560px){
     .built-list li{grid-template-columns:1fr;}
     .stat-grid{grid-template-columns:1fr;}
     .step{grid-template-columns:36px 1fr;}
-    .screenshot-grid{grid-template-columns:1fr;}
   }
 </style>
 </head>
@@ -265,7 +218,6 @@
 
   <h1 class="thesis">A feature can ship without a single bug and still break trust — if its name sets expectations the product can't meet.</h1>
   <p class="dek">How one catch before launch protected user trust, validated a name through research, and drove 85K+ weekly users to a feature that actually delivered what it promised.</p>
-
 
   <section>
     <h2 class="section-title">The Problem</h2>
@@ -320,21 +272,17 @@
 
   <section>
     <h2 class="section-title">The Feature in Production</h2>
-    <p class="screenshot-intro">Active Times as it shipped — platform-specific recommendations for Facebook and Instagram, exactly as advocated for. The copy across both the entry point and the scheduling modal reflects the final naming and the honest, per-platform framing the feature needed to earn user trust.</p>
-    <div class="screenshot-grid">
+    <p class="screenshot-intro">Active Times as it shipped — platform-specific recommendations for Facebook and Instagram, exactly as advocated for. The copy across both surfaces reflects the final naming and the honest, per-platform framing the feature needed to earn user trust.</p>
+    <div class="screenshot-stack">
       <div class="screenshot-item">
-        <img src="ActiveTimes_Entry.png" alt="Active Times entry point in the Create Post flow, showing platform-specific scheduling fields for Facebook and Instagram">
-        <div class="screenshot-caption">
-          <b>Entry point</b>
-          The scheduling section of the Create Post flow. Each platform surfaces its own recommended times rather than a single averaged suggestion.
-        </div>
+        <img src="ActiveTImes_Entry.png" alt="Active Times entry point in the Create Post scheduling flow">
+        <div class="screenshot-label">Entry point</div>
+        <div class="screenshot-caption">The scheduling section of the Create Post flow. Each platform surfaces its own recommended times rather than a single averaged suggestion — the product change that made the feature worth trusting.</div>
       </div>
       <div class="screenshot-item">
-        <img src="ActiveTimes_PopUp.png" alt="Active Times modal showing recommended posting times for Facebook and Instagram separately">
-        <div class="screenshot-caption">
-          <b>Scheduling modal</b>
-          The expanded Active Times modal. Facebook and Instagram each surface three distinct recommended windows — accurate to how each platform's audience actually behaves.
-        </div>
+        <img src="ActiveTImes_PopUp.png" alt="Active Times modal showing distinct recommended posting windows for Facebook and Instagram">
+        <div class="screenshot-label">Scheduling modal</div>
+        <div class="screenshot-caption">The expanded Active Times modal. Facebook and Instagram each surface three distinct recommended windows — accurate to how each platform's audience actually behaves, not an average of both.</div>
       </div>
     </div>
   </section>
