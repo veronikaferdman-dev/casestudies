@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -200,6 +200,7 @@
   /* ---------- product gallery ---------- */
   .gallery{ display:flex; flex-direction:column; gap:24px; }
   .gallery__row{ display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:start; }
+  .gallery__row--full{ grid-template-columns:1fr; }
   .gallery__item{ display:flex; flex-direction:column; gap:10px; }
   .gallery__frame{
     border:1px solid var(--rule); background:var(--paper-2);
@@ -322,7 +323,7 @@
       <div class="section-body">
         <p style="margin-bottom:26px;">The assistant lives inside Meta Business Suite, surfaced to small-business owners as a conversational entry point for managing their Facebook and Instagram presence — this is the surface the evaluation system above was built to hold to a standard.</p>
         <div class="gallery">
-          <div class="gallery__row">
+          <div class="gallery__row gallery__row--full">
             <div class="gallery__item">
               <div class="gallery__frame"><img src="Meta%20ai%20desktop.png" alt="Meta AI business assistant panel open inside Meta Business Suite, docked beside the Home tab for a business page."></div>
               <p class="gallery__caption">The assistant docked inside Meta Business Suite's Home tab.</p>
